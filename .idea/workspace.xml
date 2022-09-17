@@ -6,9 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="created socat and jar">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="adjusted gitignore">
+      <change afterPath="$PROJECT_DIR$/src/com/socat/Communicator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socat/MainSocat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socat/MainSocat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1661856093249</updated>
-      <workItem from="1663424742683" duration="1152000" />
+      <workItem from="1663424742683" duration="2060000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -74,7 +74,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663425431684</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="adjusted gitignore">
+      <created>1663425909236</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663425909236</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +100,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created socat and jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="created socat and jar" />
+    <MESSAGE value="adjusted gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjusted gitignore" />
   </component>
 </project>
