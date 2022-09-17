@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Server_Samu:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Server_Samu_jar</output-path>
+    <root id="archive" name="Server_Samu.jar">
+      <element id="module-output" name="Server_Samu" />
+    </root>
+  </artifact>
+</component>
