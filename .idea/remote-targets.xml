@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="samu@samuele.ddns.net:22" type="ssh/sftp" uuid="25a32d79-7c1f-45bb-8906-87d239dba6cc">
+        <config>
+          <option name="projectRootOnTarget" value="/home/samu/Server_Samu" />
+          <option name="serverName" value="samu@samuele.ddns.net:22 key" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/home/samu/.jdks/openjdk-18.0.2.1" />
+            <option name="javaVersionString" value="18.0.2.1" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
