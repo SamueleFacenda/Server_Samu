@@ -23,5 +23,5 @@ CREATE TABLE data (
 INSERT INTO users (username, password) VALUES ('samu', 'samu');
 
 ALTER TABLE users
-    ALTER COLUMN password TYPE varchar(65),
+    ALTER COLUMN password TYPE varchar(97),
     ALTER COLUMN password SET NOT NULL ;

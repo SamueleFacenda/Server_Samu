@@ -1,5 +1,8 @@
 package com.socket;
 
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Connection;
 import java.util.logging.Level;
@@ -23,9 +26,10 @@ public class PostgresConnector {
         url = "jdbc:postgresql://"+(isLocal?"localhost":"samuele.ddns.net") +":5432/samudb";
         String password = System.getenv("SAMU_PASSWORD");
 
-        try (Connection con = DriverManager.getConnection(url, user, password);
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery("SELECT VERSION()")) {
+        try{
+            Connection con = DriverManager.getConnection(url, user, password);
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT VERSION()") ;
 
             if (rs.next()) {
                 System.out.println(rs.getString(1));
@@ -36,7 +40,7 @@ public class PostgresConnector {
             addData = con.prepareStatement(addData_String);
             conn = con;
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(ex.getLocalizedMessage());
         }
     }
 
@@ -53,7 +57,7 @@ public class PostgresConnector {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(PostgresConnector.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(ex);
+            System.err.println(ex.getLocalizedMessage());
             return false;
         }
     }
@@ -76,7 +80,7 @@ public class PostgresConnector {
             ResultSet rs = getUser.executeQuery();
             return rs.next() ? rs.getInt("id") : -1;
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(ex.getLocalizedMessage());
         }
         return -1;
     }
@@ -89,17 +93,17 @@ public class PostgresConnector {
      */
     private String hash(String str) {
         try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
             byte[] array = md.digest(str.getBytes());
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < array.length; ++i) {
-                String hex = Integer.toHexString((array[i] & 0xFF) | 0x100);
-                if(hex.length() == 1) sb.append('0');
+            for (byte b : array) {
+                String hex = Integer.toHexString((b & 0xFF) | 0x100);
+                if (hex.length() == 1) sb.append('0');
                 sb.append(hex);
             }
             return sb.toString();
-        } catch (java.security.NoSuchAlgorithmException e) {
-            System.err.println(e);
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -118,9 +122,11 @@ public class PostgresConnector {
             addUser.setString(2, password);
             addUser.executeUpdate();
         } catch (SQLIntegrityConstraintViolationException ex) {
+            System.err.println("Username already in use "+ ex.getLocalizedMessage());
             return false;
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(ex.getLocalizedMessage());
+            System.out.println("Error in addUser method");
             return false;
         }
         return true;
@@ -142,7 +148,7 @@ public class PostgresConnector {
             addData.setString(4, timestamp.toString());
             addData.executeUpdate();
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(ex.getLocalizedMessage());
         }
     }
 }

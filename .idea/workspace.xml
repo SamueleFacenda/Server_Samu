@@ -6,19 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="talker skeleton">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/postgresql.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/remote-targets.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/socket/CommunicatioUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/socket/Semaforo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
+    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="Connection Utils(come pwntools), multithreading connection e connessione al database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Samu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Samu.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/CommunicatioUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/CommunicatioUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/MainSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/provaDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +112,7 @@
       <updated>1661856093249</updated>
       <workItem from="1663424742683" duration="6782000" />
       <workItem from="1663486367111" duration="4642000" />
-      <workItem from="1663499285948" duration="1070000" />
+      <workItem from="1663499285948" duration="3598000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -148,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663427903523</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Connection Utils(come pwntools), multithreading connection e connessione al database">
+      <created>1663500436868</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663500436868</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +170,7 @@
     <MESSAGE value="created socat and jar" />
     <MESSAGE value="adjusted gitignore" />
     <MESSAGE value="talker skeleton" />
-    <option name="LAST_COMMIT_MESSAGE" value="talker skeleton" />
+    <MESSAGE value="Connection Utils(come pwntools), multithreading connection e connessione al database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connection Utils(come pwntools), multithreading connection e connessione al database" />
   </component>
 </project>
