@@ -6,9 +6,19 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="adjusted gitignore">
-      <change afterPath="$PROJECT_DIR$/src/com/socat/Communicator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socat/MainSocat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socat/MainSocat.java" afterDir="false" />
+    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="talker skeleton">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/postgresql.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/remote-targets.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/socket/CommunicatioUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/socket/Semaforo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_Samu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Samu.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,20 +46,68 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "dart.analysis.tool.window.visible": "false",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RunManager" selected="Application.RemoteSocket">
+    <configuration name="PostgresConnector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="SAMU_PASSWORD" value="***REMOVED***" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.socket.PostgresConnector" />
+      <module name="Server_Samu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.socket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RemoteSocket" type="Application" factoryName="Application">
+      <envs>
+        <env name="SAMU_PASSWORD" value="***REMOVED***" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.socket.MainSocket" />
+      <module name="Server_Samu" />
+      <projectPathOnTarget name="projectPathOnTarget" value="/home/samu/Scaricati" />
+      <target name="samu@samuele.ddns.net:22" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.RemoteSocket" />
+      <item itemvalue="Application.PostgresConnector" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PostgresConnector" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,7 +116,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1661856093249</updated>
-      <workItem from="1663424742683" duration="2060000" />
+      <workItem from="1663424742683" duration="6782000" />
+      <workItem from="1663486367111" duration="4642000" />
+      <workItem from="1663499285948" duration="1070000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -81,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663425909236</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="talker skeleton">
+      <created>1663427903523</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663427903523</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,6 +168,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created socat and jar" />
     <MESSAGE value="adjusted gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjusted gitignore" />
+    <MESSAGE value="talker skeleton" />
+    <option name="LAST_COMMIT_MESSAGE" value="talker skeleton" />
   </component>
 </project>
