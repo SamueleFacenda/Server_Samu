@@ -5,8 +5,8 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class CommunicatioUtils {
-    private BufferedReader in;
-    private PrintWriter out;
+    private final BufferedReader in;
+    private final PrintWriter out;
 
     public CommunicatioUtils(BufferedReader in, PrintWriter out) {
         this.in = in;
