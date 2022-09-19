@@ -6,13 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="Connection Utils(come pwntools), multithreading connection e connessione al database">
+    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="aggiunto test login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/CommunicatioUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/CommunicatioUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/MainSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/provaDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +60,13 @@
   }
 }</component>
   <component name="RunManager" selected="Application.RemoteSocket">
+    <configuration name="LocalSocketTest" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.socket.MainSocket" />
+      <module name="Server_Samu" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PostgresConnector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="SAMU_PASSWORD" value="***REMOVED***" />
@@ -94,6 +97,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.RemoteSocket" />
+      <item itemvalue="Application.LocalSocketTest" />
       <item itemvalue="Application.PostgresConnector" />
     </list>
     <recent_temporary>
@@ -112,7 +116,8 @@
       <updated>1661856093249</updated>
       <workItem from="1663424742683" duration="6782000" />
       <workItem from="1663486367111" duration="4642000" />
-      <workItem from="1663499285948" duration="3598000" />
+      <workItem from="1663499285948" duration="3820000" />
+      <workItem from="1663567789808" duration="2133000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -149,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663500436868</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="aggiunto test login">
+      <created>1663502907699</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663502907699</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +183,7 @@
     <MESSAGE value="adjusted gitignore" />
     <MESSAGE value="talker skeleton" />
     <MESSAGE value="Connection Utils(come pwntools), multithreading connection e connessione al database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connection Utils(come pwntools), multithreading connection e connessione al database" />
+    <MESSAGE value="aggiunto test login" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunto test login" />
   </component>
 </project>

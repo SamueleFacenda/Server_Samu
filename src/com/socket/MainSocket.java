@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 public class MainSocket {
+    private static final int PORT = 9999;
     public static void main(String[] args) {
-        try(ServerSocket serverSocket = new ServerSocket(9999)) {
+        try(ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Listening on port " + PORT);
             while (true) {
                 new Connection(serverSocket.accept()).start();
                 System.out.println("Connection accepted");
