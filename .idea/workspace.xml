@@ -69,7 +69,7 @@
     </configuration>
     <configuration name="PostgresConnector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
-        <env name="SAMU_PASSWORD" value="***REMOVED***" />
+        <env name="SAMU_PASSWORD" value="" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.socket.PostgresConnector" />
       <module name="Server_Samu" />
@@ -85,7 +85,7 @@
     </configuration>
     <configuration name="RemoteSocket" type="Application" factoryName="Application">
       <envs>
-        <env name="SAMU_PASSWORD" value="***REMOVED***" />
+        <env name="SAMU_PASSWORD" value="" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.socket.MainSocket" />
       <module name="Server_Samu" />
