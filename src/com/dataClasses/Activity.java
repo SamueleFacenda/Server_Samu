@@ -9,7 +9,6 @@ public record Activity(
         String file,
         String comment
 )
-        implements Message
 {
     public Activity setUser(String user){
         return new Activity(user,label(),ts(),file(),comment());

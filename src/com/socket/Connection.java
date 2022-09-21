@@ -18,7 +18,6 @@ import java.io.*;
 import java.net.*;
 import java.security.PublicKey;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 public class Connection extends Thread {
     private final Socket socket;
@@ -160,7 +159,7 @@ public class Connection extends Thread {
         return false;
     }
 
-    private <T extends Message> T readMessage(Class<T> clazz) {
+    private <T> T readMessage(Class<T> clazz) {
         try {
             String in = readFromClient();
             return JsonUtils.fromJson(in, clazz);
@@ -170,7 +169,7 @@ public class Connection extends Thread {
         }
     }
 
-    private <T extends Message> T readEncryptedMessage(Class<T> clazz, String prefix, String suffix) {
+    private <T> T readEncryptedMessage(Class<T> clazz, String prefix, String suffix) {
         try {
             String in = reciveAndDecrypt(prefix, suffix);
             return JsonUtils.fromJson(in, clazz);
@@ -180,7 +179,7 @@ public class Connection extends Thread {
         }
     }
 
-    private <T extends Message> void writeMessage(T message) {
+    private <T> void writeMessage(T message) {
         cu.writeLine(CLIENT + JsonUtils.toJson(message));
     }
 
@@ -302,6 +301,7 @@ public class Connection extends Thread {
             System.out.println(this.getName() + "  user " + auth.user() + " failed to login, internal server error");
             System.err.println(e.getMessage());
             isLogged = false;
+
         }
     }
 
@@ -339,4 +339,16 @@ public class Connection extends Thread {
         cu.writeLine(CLIENT + "Bye");
     }
 
+    @Override
+    public String toString() {
+        return "Connection{" +
+                "socket=" + socket +
+                ", cu=" + cu +
+                ", id=" + id +
+                ", sessionKey=" + sessionKey +
+                ", sessionIV=" + sessionIV +
+                ", user='" + user + '\'' +
+                ", isLogged=" + isLogged +
+                '}';
+    }
 }
