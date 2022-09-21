@@ -10,6 +10,7 @@ import com.crypto.JsonUtils;
 import com.crypto.KeyManager;
 import com.crypto.RSAUtils;
 import com.dataClasses.*;
+import com.managers.CommentsManager;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
@@ -17,6 +18,7 @@ import java.io.*;
 import java.net.*;
 import java.security.PublicKey;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Connection extends Thread {
     private final Socket socket;
@@ -308,6 +310,12 @@ public class Connection extends Thread {
         try{
             if(!isLogged)
                 return false;
+            if(activity.ts() == null)
+                activity = activity.setTs(new Timestamp(System.currentTimeMillis()));
+            if(!activity.comment().equals(""))
+                activity = activity.setComment(
+                        CommentsManager.addComment(user, activity.comment(), activity.ts())
+                );
             pc.addData(activity);
             return true;
         }catch(Exception e){
