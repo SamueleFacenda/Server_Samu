@@ -74,7 +74,7 @@ public class JsonUtils {
         return new JSONObject(map).toString();
     }
 
-    public static <T extends Message> String toJson(T in){
+    public static <T> String toJson(T in){
         if(in instanceof Auth){
             return getAuth((Auth) in);
         }else if(in instanceof Activity){
@@ -88,7 +88,7 @@ public class JsonUtils {
         }
     }
 
-    public static <T extends Message> T fromJson(String in, Class<T> clazz){
+    public static <T> T fromJson(String in, Class<T> clazz){
         if(clazz == Auth.class){
             return (T) getAuth(in);
         }else if(clazz == Activity.class){
