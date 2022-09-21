@@ -14,4 +14,12 @@ public record Activity(
     public Activity setUser(String user){
         return new Activity(user,label(),ts(),file(),comment());
     }
+
+    public Activity setTs(Timestamp timestamp) {
+        return new Activity(user(),label(),timestamp,file(),comment());
+    }
+
+    public Activity setComment(String file) {
+        return new Activity(user(),label(),ts(),file,comment());
+    }
 }

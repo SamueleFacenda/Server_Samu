@@ -6,22 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="aggiunto test login">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/crypto/AESUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/crypto/JsonUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/crypto/KeyManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/crypto/RSAUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/Activity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/AesKey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/Auth.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/SessionMetadata.java" afterDir="false" />
+    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="Aggiunta parte crypto, sra e aes, json converter e la comunicazione col client">
+      <change afterPath="$PROJECT_DIR$/src/com/managers/CommentsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_Samu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Samu.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dataClasses/Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dataClasses/Activity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/provaDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +52,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
+    "extract.method.default.visibility": "private",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -146,6 +138,9 @@
       <workItem from="1663599476552" duration="1099000" />
       <workItem from="1663657024296" duration="14989000" />
       <workItem from="1663743205017" duration="310000" />
+      <workItem from="1663743534482" duration="96000" />
+      <workItem from="1663743660761" duration="21000" />
+      <workItem from="1663747354229" duration="2259000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -196,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663576718764</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Aggiunta parte crypto, sra e aes, json converter e la comunicazione col client">
+      <created>1663743607755</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663743607755</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,6 +221,7 @@
     <MESSAGE value="talker skeleton" />
     <MESSAGE value="Connection Utils(come pwntools), multithreading connection e connessione al database" />
     <MESSAGE value="aggiunto test login" />
-    <option name="LAST_COMMIT_MESSAGE" value="aggiunto test login" />
+    <MESSAGE value="Aggiunta parte crypto, sra e aes, json converter e la comunicazione col client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggiunta parte crypto, sra e aes, json converter e la comunicazione col client" />
   </component>
 </project>

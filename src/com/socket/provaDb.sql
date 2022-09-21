@@ -25,3 +25,10 @@ INSERT INTO users (username, password) VALUES ('samu', 'samu');
 ALTER TABLE users
     ALTER COLUMN password TYPE varchar(97),
     ALTER COLUMN password SET NOT NULL ;
+
+CREATE TABLE tokens (
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL,
+    token varchar(100) NOT NULL,
+    created_at timestamp NOT NULL
+);

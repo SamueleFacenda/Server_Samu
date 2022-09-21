@@ -15,8 +15,8 @@ public class PostgresConnector {
     private final String url;
     private final String user = "samu";
     private  Connection conn = null;
-    private final String addUser_String, getUser_String, addData_String, getUser_id_String;
-    private PreparedStatement addUser, getUser, addData, getUser_id;
+    private final String addUser_String, getUser_String, addData_String, getUser_id_String, addToken_String, checkToken_String;
+    private PreparedStatement addUser, getUser, addData, getUser_id, addToken, checkToken;
 
 
     public PostgresConnector(boolean isLocal) {
@@ -25,6 +25,8 @@ public class PostgresConnector {
         getUser_String = "SELECT * FROM users WHERE username = ? AND password = ?";
         addData_String = "INSERT INTO data (user_id, label, file, created_at) VALUES (?, ?, ?, ?)";
         getUser_id_String = "SELECT id FROM users WHERE username = ?";
+        addToken_String = "INSERT INTO tokens (user_id, token) VALUES (?, ?, ?)";
+        checkToken_String = "SELECT * FROM tokens WHERE user_id = ? AND token = ?";
 
         url = "jdbc:postgresql://"+(isLocal?"localhost":"samuele.ddns.net") +":5432/samudb";
         String password = System.getenv("SAMU_PASSWORD");
@@ -42,6 +44,8 @@ public class PostgresConnector {
             getUser = con.prepareStatement(getUser_String);
             addData = con.prepareStatement(addData_String);
             getUser_id = con.prepareStatement(getUser_id_String);
+            addToken = con.prepareStatement(addToken_String);
+            checkToken = con.prepareStatement(checkToken_String);
             conn = con;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -59,6 +63,8 @@ public class PostgresConnector {
             getUser = conn.prepareStatement(getUser_String);
             addData = conn.prepareStatement(addData_String);
             getUser_id = conn.prepareStatement(getUser_id_String);
+            addToken = conn.prepareStatement(addToken_String);
+            checkToken = conn.prepareStatement(checkToken_String);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(PostgresConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,10 +175,26 @@ public class PostgresConnector {
             System.err.println(ex.getLocalizedMessage());
         }
     }
+    public void addData(String username, String label, String file, Timestamp ts) {
+        int user_id = getUser(username);
+        try {
+            addData.setInt(1, user_id);
+            addData.setString(2, label);
+            addData.setString(3, file);
+            addData.setString(4, ts.toString());
+            addData.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+        }
+    }
     public void addData(Activity a) {
         int user_id = getUser(a.user());
         try {
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Timestamp timestamp;
+            if(a.ts() == null)
+                timestamp = new Timestamp(System.currentTimeMillis());
+            else
+                timestamp = new Timestamp(a.ts().getTime());
             addData.setInt(1, user_id);
             addData.setString(2, a.label());
             addData.setString(3, a.file());
@@ -181,5 +203,29 @@ public class PostgresConnector {
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
         }
+    }
+    public void addToken(String user, String token){
+        try {
+            int user_id = getUser(user);
+            addToken.setInt(1, user_id);
+            addToken.setString(2, token);
+            addData.setString(3, new Timestamp(System.currentTimeMillis()).toString());
+            addToken.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+        }
+
+    }
+    public boolean checkToken(String user, String token){
+        try {
+            int user_id = getUser(user);
+            checkToken.setInt(1, user_id);
+            checkToken.setString(2, token);
+            ResultSet rs = checkToken.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+        }
+        return false;
     }
 }
