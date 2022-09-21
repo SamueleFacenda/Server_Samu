@@ -1,6 +1,8 @@
 package com.socket;
 
 
+import com.dataClasses.Activity;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -13,8 +15,8 @@ public class PostgresConnector {
     private final String url;
     private final String user = "samu";
     private  Connection conn = null;
-    private final String addUser_String, getUser_String, addData_String;
-    private PreparedStatement addUser, getUser, addData;
+    private final String addUser_String, getUser_String, addData_String, getUser_id_String;
+    private PreparedStatement addUser, getUser, addData, getUser_id;
 
 
     public PostgresConnector(boolean isLocal) {
@@ -22,6 +24,7 @@ public class PostgresConnector {
         addUser_String = "INSERT INTO users (username, password) VALUES (?, ?)";
         getUser_String = "SELECT * FROM users WHERE username = ? AND password = ?";
         addData_String = "INSERT INTO data (user_id, label, file, created_at) VALUES (?, ?, ?, ?)";
+        getUser_id_String = "SELECT id FROM users WHERE username = ?";
 
         url = "jdbc:postgresql://"+(isLocal?"localhost":"samuele.ddns.net") +":5432/samudb";
         String password = System.getenv("SAMU_PASSWORD");
@@ -38,6 +41,7 @@ public class PostgresConnector {
             addUser = con.prepareStatement(addUser_String);
             getUser = con.prepareStatement(getUser_String);
             addData = con.prepareStatement(addData_String);
+            getUser_id = con.prepareStatement(getUser_id_String);
             conn = con;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -54,6 +58,7 @@ public class PostgresConnector {
             addUser = conn.prepareStatement(addUser_String);
             getUser = conn.prepareStatement(getUser_String);
             addData = conn.prepareStatement(addData_String);
+            getUser_id = conn.prepareStatement(getUser_id_String);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(PostgresConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,16 +73,28 @@ public class PostgresConnector {
      * @param password the password to check
      * @return true if the user is in the database and the password is correct, false otherwise
      */
-    public boolean checkUser(String username, String password){
-        return getUser(username, password) != -1;
+    public boolean checkUser(String username, String password, boolean isHash){
+        return getUser(username, password, isHash) != -1;
     }
 
-    private int getUser(String username, String password) {
-        password = hash(password);
+    private int getUser(String username, String password, boolean isHash) {
+        if(!isHash) password = hash(password);
+
         try {
             getUser.setString(1, username);
             getUser.setString(2, password);
             ResultSet rs = getUser.executeQuery();
+            return rs.next() ? rs.getInt("id") : -1;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+        }
+        return -1;
+    }
+
+    private int getUser(String username) {
+        try {
+            getUser_id.setString(1, username);
+            ResultSet rs = getUser_id.executeQuery();
             return rs.next() ? rs.getInt("id") : -1;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -114,9 +131,10 @@ public class PostgresConnector {
      * @param password the password to add
      * the password is hashed with the SHA-256 algorithm
      */
-    public boolean addUser(String username, String password) {
+    public boolean addUser(String username, String password, boolean isHash) {
+
         //hash the password
-        password = hash(password);
+        if(!isHash) password = hash(password);
         try {
             addUser.setString(1, username);
             addUser.setString(2, password);
@@ -139,12 +157,25 @@ public class PostgresConnector {
      * @param file the file of the data
      */
     public void addData(String username, String label, String file) {
-        int user_id = getUser(username, "");
+        int user_id = getUser(username);
         try {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             addData.setInt(1, user_id);
             addData.setString(2, label);
             addData.setString(3, file);
+            addData.setString(4, timestamp.toString());
+            addData.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+        }
+    }
+    public void addData(Activity a) {
+        int user_id = getUser(a.user());
+        try {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            addData.setInt(1, user_id);
+            addData.setString(2, a.label());
+            addData.setString(3, a.file());
             addData.setString(4, timestamp.toString());
             addData.executeUpdate();
         } catch (SQLException ex) {

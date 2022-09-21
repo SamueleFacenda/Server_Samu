@@ -7,8 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="aggiunto test login">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/json.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/crypto/AESUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/crypto/JsonUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/crypto/KeyManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/crypto/RSAUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/Activity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/AesKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/Auth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/dataClasses/SessionMetadata.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/MainSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_Samu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server_Samu.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -36,29 +50,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.dataClasses" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\samue\IdeaProjects\Server_Samu\src\com\dataClasses" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.RemoteSocket">
     <configuration name="LocalSocketTest" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.socket.MainSocket" />
@@ -118,6 +141,11 @@
       <workItem from="1663486367111" duration="4642000" />
       <workItem from="1663499285948" duration="3820000" />
       <workItem from="1663567789808" duration="2133000" />
+      <workItem from="1663576641329" duration="95000" />
+      <workItem from="1663598250421" duration="1183000" />
+      <workItem from="1663599476552" duration="1099000" />
+      <workItem from="1663657024296" duration="14989000" />
+      <workItem from="1663743205017" duration="310000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -161,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663502907699</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="aggiunto test login">
+      <created>1663576718764</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1663576718764</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

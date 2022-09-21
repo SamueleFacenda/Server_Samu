@@ -5,19 +5,36 @@ package com.socket;
  * tcp socket server class, the socket is passed in the constructor
  */
 
+import com.crypto.AESUtils;
+import com.crypto.JsonUtils;
+import com.crypto.KeyManager;
+import com.crypto.RSAUtils;
+import com.dataClasses.*;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
 import java.net.*;
+import java.security.PublicKey;
+import java.sql.Timestamp;
 
 public class Connection extends Thread {
     private final Socket socket;
     private CommunicatioUtils cu;
     private static PostgresConnector pc;
     private static Semaforo s;
-    private static int id;
+    private final int id;
+    private static int totConnections = 0;
+    private static String SERVER = "ServerSamu--", CLIENT = "ClientSamu--", ACK = "Recived";
+    private SecretKey sessionKey;
+    private IvParameterSpec sessionIV;
+    private String user;
+    private boolean isLogged = false;
 
 
     public Connection(Socket socket) {
-        super("Connection" + id++ + "   port: " + socket.getPort());
+        super("Connection" + totConnections++ + "   port: " + socket.getPort());
+        id = totConnections;
         System.out.println("Connection created:  " + this.getName());
         if(pc == null) {
             s = new Semaforo(1);
@@ -42,43 +59,34 @@ public class Connection extends Thread {
 
     @Override
     public void run(){
-        cu.writeLine("Welcome to Samu's server");
-        cu.writeLine("Please login or register(1/2)");
-        String username = null;
-        String password = null;
-        String in = cu.readLine();
-        switch(in){
-            case "1" -> {
-                cu.writeLine("Please insert your username");
-                username = cu.readLine();
-                cu.writeLine("Please insert your password");
-                password = cu.readLine();
-                s.P();
-                if(pc.checkUser(username, password)){
-                    cu.writeLine("Login successful");
-                } else {
-                    cu.writeLine("Login failed");
+        if(acceptConnection()){
+            SessionMetadata sm = readMessage(SessionMetadata.class);
+            if(sm.isNew())
+                firstAccess();
+            else if(sm.rsaTimestamp().before(KeyManager.getLastTS()))
+                sendLastKey();
+            writeAck();
+            if(!reciveEncryptedKey())
+                return;
+            writeAck();
+            int choice;
+            do{
+                choice = readInt();
+                switch (choice) {
+                    case 0 -> register();
+                    case 1 -> login();
+                    case 2 -> {
+                        if(!upload()) return;
+                    }
+                    case 3 -> System.out.println(this.getName() + "  exiting...");
+                    default -> System.out.println(this.getName() + " invalid choice");
                 }
-                s.V();
-            }
-            case "2" -> {
-                cu.writeLine("Please insert your username");
-                username = cu.readLine();
-                cu.writeLine("Please insert your password");
-                password = cu.readLine();
-                cu.writeLine("Please insert your password again");
-                String password2 = cu.readLine();
-                s.P();
-                if(!password.equals(password2)){
-                    cu.writeLine("Passwords don't match");
-                }else if(!pc.addUser(username, password)){
-                    cu.writeLine("Username already exists");
-                }
-                s.V();
-            }
-            default -> {
-                cu.writeLine("Invalid input");
-            }
+            }while(choice != 3);
+
+            if(readBye())
+                sendBye();
+            else
+                System.out.println(this.getName() + "  error in bye");
         }
         try {
             socket.close();
@@ -86,4 +94,241 @@ public class Connection extends Thread {
             System.out.println("Error in Connection run method, closing socket");
         }
     }
+
+    private String readFromServer() throws IOException {
+        return readFrom(SERVER);
+    }
+
+    private String readFrom(String name) throws IOException {
+        String line = cu.readLine();
+        if(line.startsWith(name)){
+            return line.substring(name.length());
+        }else
+            throw new IOException("Invalid input from " + name);
+    }
+
+    private String readFromClient() throws IOException {
+        return readFrom(CLIENT);
+    }
+
+    private boolean readAck() {
+        try{
+            String in = readFromServer();
+            return in.equals(ACK);
+        }catch(IOException e){
+            System.out.println("Error in Connection readAck method");
+            return false;
+        }
+    }
+
+    private int readInt() {
+        try{
+            String in = readFromClient();
+            return Integer.parseInt(in);
+        }catch(IOException e){
+            System.out.println("Error in Connection readInt method");
+            return -1;
+        }
+    }
+
+    private void writeAck() {
+        cu.writeLine(SERVER + ACK);
+    }
+
+    private void writeInt(int i) {
+        cu.writeLine(CLIENT + i);
+    }
+
+    private void askConnection(){
+        cu.writeLine(CLIENT + "AskingForConnection");
+    }
+
+    private boolean acceptConnection(){
+        try{
+            String in = readFromClient();
+            if(in.equals("AskingForConnection")) {
+                cu.writeLine(SERVER + "ConnectionAccepted");
+                return true;
+            }
+
+            //se è qualcuno a caso che scrive non rispondo
+        }catch(IOException e){
+            System.err.println("Error in Connection acceptConnection method");
+        }
+        return false;
+    }
+
+    private <T extends Message> T readMessage(Class<T> clazz) {
+        try {
+            String in = readFromClient();
+            return JsonUtils.fromJson(in, clazz);
+        } catch (Exception e) {
+            System.err.println("Error in Connection readMessage method");
+            return null;
+        }
+    }
+
+    private <T extends Message> T readEncryptedMessage(Class<T> clazz, String prefix, String suffix) {
+        try {
+            String in = reciveAndDecrypt(prefix, suffix);
+            return JsonUtils.fromJson(in, clazz);
+        } catch (Exception e) {
+            System.err.println("Error in Connection readEncryptedMessage method");
+            return null;
+        }
+    }
+
+    private <T extends Message> void writeMessage(T message) {
+        cu.writeLine(CLIENT + JsonUtils.toJson(message));
+    }
+
+    private String reciveAndDecrypt(String prefix, String suffix) {
+        try {
+            String in = readFromClient();
+            if(!in.startsWith(prefix) || !in.endsWith(suffix))
+                return null;
+            in = in.substring(prefix.length(), in.length() - suffix.length());
+            return AESUtils.decrypt(in, sessionKey, sessionIV);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error in Connection reciveAndDecrypt method\n" + e.getMessage());
+            return null;
+        }
+    }
+
+    private void sendEncrypted(String message, String prefix, String suffix) {
+        try {
+            String encrypted = AESUtils.encrypt(message, sessionKey, sessionIV);
+            cu.writeLine(prefix + encrypted + suffix);
+        } catch (Exception e) {
+            System.err.println("Error in Connection sendEncrypted method");
+        }
+    }
+
+    private void firstAccess(){
+        try{
+            Auth auth = readMessage(Auth.class);
+            if (pc.addUser(auth.user(), auth.psw(), false)) {
+                System.out.println(this.getName() + "  new user registered");
+                cu.writeLine(SERVER + "OK");
+            }else {
+                System.out.println(this.getName() + "  error in firstAccess, user already existing");
+                cu.writeLine(SERVER + "alreadyExist");
+            }
+        }catch(Exception e){
+            cu.writeLine(SERVER + "Invalid");
+        }
+    }
+
+    private void sendLastKey(){
+        cu.writeLine(SERVER + "RSAKEY:" + KeyManager.getPublicKey() + "--ENDKEY");
+    }
+
+    private void reciveLastKey(){
+        try{
+            String in = readFromServer();
+            if(in.startsWith("RSAKEY:") && in.endsWith("--ENDKEY")){
+                in = in.substring(7, in.length() - 8);
+                PublicKey pk = RSAUtils.fromBase64Public(in);
+            }
+        }catch(IOException e){
+            System.err.println("Error in Connection reciveLastKey method");
+        }catch(Exception e){
+            System.err.println("Error in Connection reciveLastKey method, invalid key");
+        }
+    }
+
+    private boolean reciveEncryptedKey(){
+        try{
+            String in = readFromServer();
+            in = RSAUtils.decrypt(RSAUtils.fromBase64(in), KeyManager.getPrivateKey());
+            AesKey aesKey = JsonUtils.fromJson(in, AesKey.class);
+            sessionKey = AESUtils.fromBase64(aesKey.key());
+            sessionIV = new IvParameterSpec(AESUtils.stringToByteArray(aesKey.iv()));
+            return true;
+        }catch (Exception e){
+            System.err.println("Error in Connection reciveEncryptedKey method");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void sendEncryptedKey(){
+        try{
+            sessionIV = AESUtils.generateIv();
+            sessionKey = AESUtils.generateKey(1024);
+            String key = AESUtils.toBase64(sessionKey);
+            String iv = AESUtils.byteArrayToString(sessionIV.getIV());
+            String json = JsonUtils.toJson(new AesKey(key, iv));
+            json = RSAUtils.toBase64(RSAUtils.encrypt(json, KeyManager.getPublicKey()));
+            cu.writeLine(SERVER + json);
+        }catch(Exception e){
+            System.err.println("Error in Connection sendEncryptedKey method");
+            e.printStackTrace();
+        }
+    }
+
+    private void register(){
+        Auth auth = readEncryptedMessage(Auth.class, CLIENT , "");
+        try{
+            if (pc.addUser(auth.user(), auth.psw(), false)) {
+                System.out.println(this.getName() + "  new user registered");
+                cu.writeLine(SERVER + "OK");
+            } else {
+                cu.writeLine(SERVER + "alreadyExist");
+            }
+        }catch (Exception e){
+            cu.writeLine(SERVER + "Invalid");
+            System.err.println("Error in Connection register method   " + e.getMessage());
+        }
+    }
+
+    private void login(){
+        Auth auth = readEncryptedMessage(Auth.class, CLIENT, "");
+        try{
+            if(pc.checkUser(auth.user(), auth.psw(), false)){
+                cu.writeLine(SERVER + "OK");
+                System.out.println(this.getName() + "  user " + auth.user() + " logged in");
+                isLogged = true;
+                user = auth.user();
+            }else{
+                cu.writeLine(SERVER + "NO");
+                System.out.println(this.getName() + "  user " + auth.user() + " failed to login");
+                isLogged = false;
+            }
+        }catch(Exception e){
+            System.out.println(this.getName() + "  user " + auth.user() + " failed to login, internal server error");
+            System.err.println(e.getMessage());
+            isLogged = false;
+        }
+    }
+
+    private boolean upload(){
+        Activity activity = readEncryptedMessage(Activity.class, CLIENT, "").setUser(user);
+        try{
+            if(!isLogged)
+                return false;
+            pc.addData(activity);
+            return true;
+        }catch(Exception e){
+            System.err.println("Error in Connection upload method");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean readBye(){
+        try{
+            String in = readFromClient();
+            return in.equals("Bye");
+        }catch(IOException e){
+            System.out.println("Error in Connection readBye method");
+            return false;
+        }
+    }
+
+    private void sendBye(){
+        cu.writeLine(CLIENT + "Bye");
+    }
+
 }
