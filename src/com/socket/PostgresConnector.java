@@ -25,7 +25,7 @@ public class PostgresConnector {
         getUser_String = "SELECT * FROM users WHERE username = ? AND password = ?";
         addData_String = "INSERT INTO data (user_id, label, file, created_at) VALUES (?, ?, ?, ?)";
         getUser_id_String = "SELECT id FROM users WHERE username = ?";
-        addToken_String = "INSERT INTO tokens (user_id, token) VALUES (?, ?, ?)";
+        addToken_String = "INSERT INTO tokens (user_id, token, expires_at) VALUES (?, ?, ?)";
         checkToken_String = "SELECT * FROM tokens WHERE user_id = ? AND token = ?";
 
         url = "jdbc:postgresql://"+(isLocal?"localhost":"samuele.ddns.net") +":5432/samudb";
@@ -204,7 +204,7 @@ public class PostgresConnector {
             System.err.println(ex.getLocalizedMessage());
         }
     }
-    public void addToken(String user, String token){
+    public void addToken(String user, String token, Timestamp ts) {
         try {
             int user_id = getUser(user);
             addToken.setInt(1, user_id);
