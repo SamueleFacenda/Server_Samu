@@ -18,6 +18,7 @@ import java.io.*;
 import java.net.*;
 import java.security.PublicKey;
 import java.sql.Timestamp;
+import java.util.Random;
 
 public class Connection extends Thread {
     private final Socket socket;
@@ -288,6 +289,18 @@ public class Connection extends Thread {
         Auth auth = readEncryptedMessage(Auth.class, CLIENT, "");
         try{
             if(pc.checkUser(auth.user(), auth.psw(), false)){
+                //generate a random string lenght 100
+                String token =  new Random().ints(48, 122 + 1)
+                        .limit(100)
+                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                        .toString();
+                token = AESUtils.encrypt(token, sessionKey, sessionIV);
+                pc.addToken(auth.user(), token);
+                cu.writeLine(SERVER + "OK--" + token);
+                System.out.println(this.getName() + "  user " + auth.user() + " logged in");
+                isLogged = true;
+                user = auth.user();
+            }else if(pc.checkToken(auth.user(), auth.psw())){
                 cu.writeLine(SERVER + "OK");
                 System.out.println(this.getName() + "  user " + auth.user() + " logged in");
                 isLogged = true;

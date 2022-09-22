@@ -32,3 +32,6 @@ CREATE TABLE tokens (
     token varchar(100) NOT NULL,
     created_at timestamp NOT NULL
 );
+
+ALTER TABLE tokens
+    ADD COLUMN expires_at timestamp NOT NULL;
