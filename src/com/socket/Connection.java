@@ -295,7 +295,7 @@ public class Connection extends Thread {
                         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                         .toString();
                 token = AESUtils.encrypt(token, sessionKey, sessionIV);
-                pc.addToken(auth.user(), token);
+                pc.addToken(auth.user(), token, null);
                 cu.writeLine(SERVER + "OK--" + token);
                 System.out.println(this.getName() + "  user " + auth.user() + " logged in");
                 isLogged = true;
