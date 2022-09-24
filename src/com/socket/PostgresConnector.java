@@ -15,8 +15,8 @@ public class PostgresConnector {
     private final String url;
     private final String user = "samu";
     private  Connection conn = null;
-    private final String addUser_String, getUser_String, addData_String, getUser_id_String, addToken_String, checkToken_String;
-    private PreparedStatement addUser, getUser, addData, getUser_id, addToken, checkToken;
+    private final String addUser_String, getUser_String, addData_String, getUser_id_String, addToken_String, checkToken_String, checkTokenExpired_String;
+    private PreparedStatement addUser, getUser, addData, getUser_id, addToken, checkToken, checkTokenExpired;
 
 
     public PostgresConnector(boolean isLocal) {
@@ -27,6 +27,7 @@ public class PostgresConnector {
         getUser_id_String = "SELECT id FROM users WHERE username = ?";
         addToken_String = "INSERT INTO tokens (user_id, token, expires_at) VALUES (?, ?, ?)";
         checkToken_String = "SELECT * FROM tokens WHERE user_id = ? AND token = ?";
+        checkTokenExpired_String = "SELECT * FROM tokens WHERE token = ? AND expires_at > ?";
 
         url = "jdbc:postgresql://"+(isLocal?"localhost":"samuele.ddns.net") +":5432/samudb";
         String password = System.getenv("SAMU_PASSWORD");
@@ -46,6 +47,7 @@ public class PostgresConnector {
             getUser_id = con.prepareStatement(getUser_id_String);
             addToken = con.prepareStatement(addToken_String);
             checkToken = con.prepareStatement(checkToken_String);
+            checkTokenExpired = con.prepareStatement(checkTokenExpired_String);
             conn = con;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -65,6 +67,7 @@ public class PostgresConnector {
             getUser_id = conn.prepareStatement(getUser_id_String);
             addToken = conn.prepareStatement(addToken_String);
             checkToken = conn.prepareStatement(checkToken_String);
+            checkTokenExpired = conn.prepareStatement(checkTokenExpired_String);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(PostgresConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -219,9 +222,10 @@ public class PostgresConnector {
     public boolean checkToken(String user, String token){
         try {
             int user_id = getUser(user);
-            checkToken.setInt(1, user_id);
-            checkToken.setString(2, token);
-            ResultSet rs = checkToken.executeQuery();
+            checkTokenExpired.setInt(1, user_id);
+            checkTokenExpired.setString(2, token);
+            ResultSet rs = checkTokenExpired.executeQuery();
+
             return rs.next();
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
