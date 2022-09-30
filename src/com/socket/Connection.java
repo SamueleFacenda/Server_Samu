@@ -28,6 +28,7 @@ public class Connection extends Thread {
     private final int id;
     private static int totConnections = 0;
     private static String SERVER = "ServerSamu--", CLIENT = "ClientSamu--", ACK = "Recived";
+    private static final int EXPIRATION_DAYS = 30 * 6;//6 mesi
     private SecretKey sessionKey;
     private IvParameterSpec sessionIV;
     private String user;
@@ -295,7 +296,8 @@ public class Connection extends Thread {
                         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                         .toString();
                 token = AESUtils.encrypt(token, sessionKey, sessionIV);
-                pc.addToken(auth.user(), token, null);
+                Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * EXPIRATION_DAYS);
+                pc.addToken(auth.user(), token, expiration);
                 cu.writeLine(SERVER + "OK--" + token);
                 System.out.println(this.getName() + "  user " + auth.user() + " logged in");
                 isLogged = true;

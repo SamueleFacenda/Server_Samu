@@ -212,7 +212,7 @@ public class PostgresConnector {
             int user_id = getUser(user);
             addToken.setInt(1, user_id);
             addToken.setString(2, token);
-            addData.setString(3, new Timestamp(System.currentTimeMillis()).toString());
+            addData.setString(3, ts.toString());
             addToken.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());

@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="Aggiunta la gestione dei file dei commenti">
+    <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="aggiunta scadenza dei token">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
@@ -145,6 +145,7 @@
       <workItem from="1663743534482" duration="96000" />
       <workItem from="1663743660761" duration="21000" />
       <workItem from="1663747354229" duration="2259000" />
+      <workItem from="1664541823113" duration="571000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -202,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663743607755</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="aggiunta scadenza dei token">
+      <created>1664010703154</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1664010703155</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +234,7 @@
     <MESSAGE value="Connection Utils(come pwntools), multithreading connection e connessione al database" />
     <MESSAGE value="aggiunto test login" />
     <MESSAGE value="Aggiunta parte crypto, sra e aes, json converter e la comunicazione col client" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunta parte crypto, sra e aes, json converter e la comunicazione col client" />
+    <MESSAGE value="aggiunta scadenza dei token" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunta scadenza dei token" />
   </component>
 </project>
