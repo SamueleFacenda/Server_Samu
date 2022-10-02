@@ -10,9 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="aggiunta scadenza dei token">
+      <change afterPath="$PROJECT_DIR$/src/com/socket/MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/crypto/KeyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/crypto/KeyManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/crypto/RSAUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/crypto/RSAUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/MainSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/socket/provaDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +91,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainTest" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.socket.MainTest" />
+      <module name="Server_Samu" />
+      <target name="samu@samuele.ddns.net:22" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PostgresConnector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="SAMU_PASSWORD" value="" />
@@ -108,7 +121,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.socket.MainSocket" />
       <module name="Server_Samu" />
-      <projectPathOnTarget name="projectPathOnTarget" value="/home/samu/Scaricati" />
+      <projectPathOnTarget name="projectPathOnTarget" value="/home/samu/Scrivania/socatto/intellij" />
       <target name="samu@samuele.ddns.net:22" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -116,6 +129,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.RemoteSocket" />
+      <item itemvalue="Application.MainTest" />
       <item itemvalue="Application.LocalSocketTest" />
       <item itemvalue="Application.PostgresConnector" />
     </list>
@@ -145,7 +159,10 @@
       <workItem from="1663743534482" duration="96000" />
       <workItem from="1663743660761" duration="21000" />
       <workItem from="1663747354229" duration="2259000" />
-      <workItem from="1664541823113" duration="571000" />
+      <workItem from="1664541823113" duration="14932000" />
+      <workItem from="1664559168498" duration="2258000" />
+      <workItem from="1664604152874" duration="6156000" />
+      <workItem from="1664617681817" duration="4792000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
@@ -210,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664010703155</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="aggiunta scadenza dei token">
+      <created>1664542408543</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1664542408543</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

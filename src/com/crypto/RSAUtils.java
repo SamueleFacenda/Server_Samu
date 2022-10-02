@@ -9,11 +9,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 public class RSAUtils {
-    private static final int KEY_SIZE = 1024;
+    private static final int KEY_SIZE = 2048;
     private static final String ALGORITHM = "RSA";
     private static final String SIGNATURE_ALGORITHM = "SHA256withRSA";
     private static final String ENCRYPTION_ALGORITHM = "RSA/ECB/PKCS1Padding";
@@ -43,12 +44,12 @@ public class RSAUtils {
 
     public static PrivateKey fromBase64Private(String in) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
-        return kf.generatePrivate(new X509EncodedKeySpec(Base64.getDecoder().decode(in.getBytes())));
+        return kf.generatePrivate(new PKCS8EncodedKeySpec(Base64.getDecoder().decode(in.getBytes())));
     }
 
     public static PublicKey fromBase64Public(String in) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
-        return kf.generatePublic(new X509EncodedKeySpec(Base64.getDecoder().decode(in.getBytes())));
+        return kf.generatePublic(new PKCS8EncodedKeySpec(Base64.getDecoder().decode(in.getBytes())));
     }
 
     public static byte[] encrypt(String data, String publicKey) throws BadPaddingException, IllegalBlockSizeException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException {

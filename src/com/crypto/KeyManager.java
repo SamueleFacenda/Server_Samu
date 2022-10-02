@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Scanner;
@@ -20,7 +21,11 @@ public class KeyManager {
         do{
             f = new File(FOLDER + File.separator + last++ + EXTENSION + PUB);
         }while(f.exists());
-        last--;
+        last -= 2;
+        System.out.println("initializing keymanager, Last key: " + last + " at " + new File(getPrivateKeyPath()).getAbsolutePath() );
+        if (last == -1) {
+            addKey();
+        }
     }
 
     public static String getPrivateKeyPath(){
@@ -40,11 +45,12 @@ public class KeyManager {
                 fw.write(time + "\n---------------------------\n" + key);
             }
         }catch(IOException e){
+            System.err.println(e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public static void AddKey(){
+    public static void addKey(){
         try {
             KeyPair kp = RSAUtils.RSAKeyPairGenerator();
             String pub = RSAUtils.toBase64(kp.getPublic());
@@ -94,7 +100,8 @@ public class KeyManager {
             in.nextLine();//---------------------------
             return in.nextLine();
         } catch (FileNotFoundException e) {
-            return null;
+            throw new RuntimeException(e);
+            //return null;
         }
     }
 

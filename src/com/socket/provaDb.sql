@@ -29,9 +29,12 @@ ALTER TABLE users
 CREATE TABLE tokens (
     id serial PRIMARY KEY,
     user_id integer NOT NULL,
-    token varchar(100) NOT NULL,
+    token varchar(110) NOT NULL,
     created_at timestamp NOT NULL
 );
 
 ALTER TABLE tokens
     ADD COLUMN expires_at timestamp NOT NULL;
+
+ALTER TABLE tokens
+    DROP COLUMN created_at;
