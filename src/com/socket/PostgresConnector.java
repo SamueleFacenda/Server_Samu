@@ -3,10 +3,14 @@ package com.socket;
 
 import com.dataClasses.Activity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Connection;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
@@ -27,13 +31,14 @@ public class PostgresConnector {
         getUser_id_String = "SELECT id FROM users WHERE username = ?";
         addToken_String = "INSERT INTO tokens (user_id, token, expires_at) VALUES (?, ?, ?)";
         checkToken_String = "SELECT * FROM tokens WHERE user_id = ? AND token = ?";
-        checkTokenExpired_String = "SELECT * FROM tokens WHERE token = ? AND expires_at > ?";
+        checkTokenExpired_String = "SELECT * FROM tokens WHERE user_id = ? AND token = ? AND expires_at > ?";
 
         url = "jdbc:postgresql://"+(isLocal?"localhost":"samuele.ddns.net") +":5432/samudb";
-        String password = System.getenv("SAMU_PASSWORD");
+        String password = getPassword();
 
         try{
             Connection con = DriverManager.getConnection(url, user, password);
+            System.out.println(con.getSchema());
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT VERSION()") ;
 
@@ -50,13 +55,23 @@ public class PostgresConnector {
             checkTokenExpired = con.prepareStatement(checkTokenExpired_String);
             conn = con;
         } catch (SQLException ex) {
-            System.err.println(ex.getLocalizedMessage());
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+
         }
     }
 
-    public static void main(String[] args) {
-        new PostgresConnector(false);
+    private String getPassword(){
+        File file = new File("/home/samu/Pubblici/password.txt");
+        try {
+            Scanner scanner = new Scanner(file);
+            return scanner.nextLine();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
 
     public boolean connect() {
         try {
@@ -95,7 +110,8 @@ public class PostgresConnector {
             ResultSet rs = getUser.executeQuery();
             return rs.next() ? rs.getInt("id") : -1;
         } catch (SQLException ex) {
-            System.err.println(ex.getLocalizedMessage());
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return -1;
     }
@@ -106,7 +122,8 @@ public class PostgresConnector {
             ResultSet rs = getUser_id.executeQuery();
             return rs.next() ? rs.getInt("id") : -1;
         } catch (SQLException ex) {
-            System.err.println(ex.getLocalizedMessage());
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return -1;
     }
@@ -120,16 +137,17 @@ public class PostgresConnector {
     private String hash(String str) {
         try {
             MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
-            byte[] array = md.digest(str.getBytes());
+            byte[] array = md.digest(str.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             for (byte b : array) {
-                String hex = Integer.toHexString((b & 0xFF) | 0x100);
+                String hex = Integer.toHexString(0xFF & b);
                 if (hex.length() == 1) sb.append('0');
                 sb.append(hex);
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            System.err.println(e.getLocalizedMessage());
+            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -172,7 +190,7 @@ public class PostgresConnector {
             addData.setInt(1, user_id);
             addData.setString(2, label);
             addData.setString(3, file);
-            addData.setString(4, timestamp.toString());
+            addData.setTimestamp(4, timestamp);
             addData.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -184,7 +202,7 @@ public class PostgresConnector {
             addData.setInt(1, user_id);
             addData.setString(2, label);
             addData.setString(3, file);
-            addData.setString(4, ts.toString());
+            addData.setTimestamp(4, ts);
             addData.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -201,7 +219,7 @@ public class PostgresConnector {
             addData.setInt(1, user_id);
             addData.setString(2, a.label());
             addData.setString(3, a.file());
-            addData.setString(4, timestamp.toString());
+            addData.setTimestamp(4, timestamp);
             addData.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -212,10 +230,11 @@ public class PostgresConnector {
             int user_id = getUser(user);
             addToken.setInt(1, user_id);
             addToken.setString(2, token);
-            addData.setString(3, ts.toString());
+            addToken.setTimestamp(3, ts);
             addToken.executeUpdate();
         } catch (SQLException ex) {
-            System.err.println(ex.getLocalizedMessage());
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
 
     }
@@ -224,11 +243,13 @@ public class PostgresConnector {
             int user_id = getUser(user);
             checkTokenExpired.setInt(1, user_id);
             checkTokenExpired.setString(2, token);
+            checkTokenExpired.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             ResultSet rs = checkTokenExpired.executeQuery();
 
             return rs.next();
         } catch (SQLException ex) {
-            System.err.println(ex.getLocalizedMessage());
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return false;
     }
