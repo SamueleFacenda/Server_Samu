@@ -22,8 +22,12 @@ public class CommentsManager {
         }else{
             try{
                 f.createNewFile();
-                PrintWriter pw = new PrintWriter(f);
-                pw.write(comment);
+                try(PrintWriter pw = new PrintWriter(f)){
+                    pw.println(comment);
+                }catch(Exception e){
+                    e.printStackTrace();
+                    return "Error in writing comment";
+                }
                 return f.getName();
             }catch(Exception e){
                 return "Error: "+e.getMessage();

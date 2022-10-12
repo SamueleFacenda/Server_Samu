@@ -16,7 +16,7 @@ CREATE TABLE data (
     id serial PRIMARY KEY,
     user_id integer NOT NULL,
     label varchar(100) NOT NULL,
-    file varchar(100) NOT NULL,
+    file varchar(100),
     created_at timestamp NOT NULL
 );
 
