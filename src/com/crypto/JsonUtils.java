@@ -25,7 +25,7 @@ public class JsonUtils {
                     obj.getString("user"),
                     obj.getString("label"),
                     Timestamp.valueOf(obj.getString("ts")),
-                    obj.getString("file"),
+                    null,
                     obj.getString("comment")
             );
         }else{

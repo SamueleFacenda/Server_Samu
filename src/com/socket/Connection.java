@@ -221,7 +221,7 @@ public class Connection extends Thread {
      * @param <T>
      */
     private <T> T readEncryptedMessage(Class<T> clazz, String prefix, String suffix) {
-        try {
+        try {;
             String in = reciveAndDecrypt(prefix, suffix);
             return JsonUtils.fromJson(in, clazz);
         } catch (Exception e) {

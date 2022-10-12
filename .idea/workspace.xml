@@ -10,13 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c49b431-5c1f-49e6-b165-e668fb6970ec" name="Changes" comment="aggiunta scadenza dei token">
-      <change afterPath="$PROJECT_DIR$/src/com/socket/MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/crypto/KeyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/crypto/KeyManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/crypto/RSAUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/crypto/RSAUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/crypto/JsonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/crypto/JsonUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/managers/CommentsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/managers/CommentsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/MainSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/MainSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/PostgresConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/socket/provaDb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/socket/provaDb.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,6 +160,8 @@
       <workItem from="1664559168498" duration="2258000" />
       <workItem from="1664604152874" duration="6156000" />
       <workItem from="1664617681817" duration="4792000" />
+      <workItem from="1664905481032" duration="1823000" />
+      <workItem from="1665503827113" duration="5505000" />
     </task>
     <task id="LOCAL-00001" summary="created socat and jar">
       <created>1663425106151</created>
